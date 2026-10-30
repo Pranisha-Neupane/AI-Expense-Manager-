@@ -1,0 +1,28 @@
+For frontend : cd "D:\Csit 8th semester\AIEXPENSETRACKER\frontend\AiExpenseTracker\ai-expense-tracker-ui-boilerplate-code"
+
+For Backend :
+1) Initialize node project : npm init - y 
+and update package.json 
+
+2) dependencies: libraries your app needs to run
+express: the web server framework that handles your API routes
+pg: connects Node to your PostgreSQL database
+cors: lets your frontend (a different port) call your backend
+dotenv: loads secrets from your .env file (DB password, API keys)
+jsonwebtoken: creates and verifies login tokens (JWT)
+bcryptjs: hashes passwords so they aren’t stored as plain text
+@google/genai: lets you call Google’s Gemini AI, which is how your expense tracker gets its AI 
+
+devDependencies: only needed while developing
+nodemon: restarts the server automatically on file changes
+
+
+For good organization :to create folder structure in backend folder 
+=> mkdir controllers, middleware, routes, utils, scripts, sql
+
+Controllers: route handler functions,business logic
+Middleware: custom authentication checking
+routes:API  route definations 
+scripts: for database migration
+sql:sql schema files 
+utils: utility helpers or gemini service wrapper 
