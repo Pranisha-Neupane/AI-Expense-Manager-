@@ -26,3 +26,13 @@ routes:API  route definations
 scripts: for database migration
 sql:sql schema files 
 utils: utility helpers or gemini service wrapper 
+
+
+Thunder client Extention in vs code login:a lightweight API testing tool that runs inside VS Code, so you don’t need a separate app like Postman
+
+#Authentication system
+1. Register (POST /api/auth/register)
+2. Login (POST /api/auth/login)
+3. Protected route (GET /api/auth/me)
+
+(Register/Login → get token → send token with each request → server knows who you are)

@@ -1,10 +1,10 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import jwt from '../db.jd';
-import { defaultCategories} from '../utils/defaultCategories.js';
+import pool from '../db.js';
+import { defaultCategories } from '../utils/defaultCategories.js';
 
 const signToken = (userId) =>
-    jwt.sign({userId} , process.env.JWT_SECRET, {expiresIn:'7d'});
+    jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
 export const register = async (req, res) => {
     const { name, email, password, currency = 'USD' } = req.body;
@@ -54,5 +54,60 @@ export const register = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     } finally {
         client.release();
+    }
+};
+
+export const login = async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    try {
+        const result = await pool.query(
+            'SELECT id, name, email, password_hash, currency FROM users WHERE email = $1',
+            [email]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        const user = result.rows[0];
+        const match = await bcrypt.compare(password, user.password_hash);
+        if (!match) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        const token = signToken(user.id);
+        res.json({
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                currency: user.currency,
+            },
+            token,
+        });
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+export const getMe = async (req, res) => {
+    try {
+        const result = await pool.query(
+            'SELECT id, name, email, currency, created_at FROM users WHERE id = $1',
+            [req.userId]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json({ user: result.rows[0] });
+    } catch (error) {
+        console.error('GetMe error:', error);
+        res.status(500).json({ message: 'Server error' });
     }
 };

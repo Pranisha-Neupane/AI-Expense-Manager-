@@ -2,9 +2,9 @@ export const defaultCategories =[
     //Income 
     { name: 'Salary', type:'income', icon: 'briefcase', color:'#10B981'},
     { name: 'Freelance', type:'income', icon: 'laptop', color:'#22C55E'},
-    { name: 'Salary', type:'income', icon: 'trending-up', color:'#14B8A6'},
-    { name: 'Salary', type:'income', icon: 'gift', color:'#06B6D4'},
-    { name: 'Salary', type:'income', icon: 'plus-circle', color:'#0EA5E9'},
+    { name: 'Investments', type:'income', icon: 'trending-up', color:'#14B8A6'},
+    { name: 'Gifts', type:'income', icon: 'gift', color:'#06B6D4'},
+    { name: 'Other Income', type:'income', icon: 'plus-circle', color:'#0EA5E9'},
 
 //Expense 
 { name: 'Food & Dining', type:'expense', icon: 'utensils', color:'#F59E0B'},

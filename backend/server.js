@@ -1,29 +1,13 @@
-// import express from 'express';
-// import cors from 'cors';
-// import dotenv from 'dotenv';
-
-// dotenv.config();
-
-// const app = express();
-// const PORT = process.env.PORT || 8000;
-
-// app.use(cors());
-// app.use(express.json());
-
-// app.get('/', (req,res) => {
-//     res.json({message: 'AI Expense Tracker API is running '});
-
-// }
-// );
-
-// app.listen(PORT,() => {
-//     console.log(`VERSION TWO - port ${PORT}`);
-//     // console.log(`Server running on port ${PORT}`);
-// });
 
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+
+import authRoutes from './routes/authRoutes.js';
+import categoryRoutes from './routes/categoriesRoutes.js';
+import transactionRoutes from './routes/transactionRoutes.js';
+import budgetRoutes from './routes/budgetRoutes.js';
+
 
 dotenv.config();
 
@@ -36,6 +20,11 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.json({ message: 'AI Expense Tracker API is running' });
 });
+
+app.use('/api/auth', authRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/transactions',transactionRoutes);
+app.use('/api/budgets',budgetRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
