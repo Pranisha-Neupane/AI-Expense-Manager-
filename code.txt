@@ -36,3 +36,5 @@ Thunder client Extention in vs code login:a lightweight API testing tool that ru
 3. Protected route (GET /api/auth/me)
 
 (Register/Login → get token → send token with each request → server knows who you are)
+
+KPI cards are compact UI components on dashboards that display a single primary metric, a comparison or target, and visual context
